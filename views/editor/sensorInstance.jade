@@ -1,0 +1,21 @@
+extends ../layout.jade
+block siden
+	nav#sidenav
+		p
+			a(id="sidemen" href="/editor/dashboard") Dashboard
+			a(id="sidemen" href="/editor/sensorInstance") Sensor Instance
+			a(id="sidemen" href="/editor/account") Account
+			a(id="sidemen" href="/editor/billing") Billing
+
+block main
+	div.editor
+		block content
+			div.center
+
+				include content.html
+				
+
+				The value of Name is #{UserName}
+
+block post_wrap
+	
