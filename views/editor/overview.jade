@@ -1,21 +1,43 @@
 extends ../layout.jade
 block siden
-	nav#sidenav
-		p
-			a(id="sidemen" href="/editor/dashboard") Dashboard
-			a(id="sidemen" href="/editor/sensorInstance") Sensor Instance
-			a(id="sidemen" href="/editor/account") Account
-			a(id="sidemen" href="/editor/billing") Billing
+	include sidenav.jade
 
 block main
 	div.editor
 		block content
 			div.center
-				form(action="/editor/newworkspace", method="POST")
+				form(action="/data/retrieve", method="POST")
 					.ui.inverted.tabular.menu
 						.active.item(href="/editor/overview") Overview
 						a.item(href="/editor/map") Map
-					
-
+					table(border="1" cellpadding="5" cellspacing="5" width="100%" height="35")
+						th(bgcolor="#A5FF7F" height="50")
+							| Dataset ID
+						th(bgcolor="#A5FF7F" height="50")
+							| Sensor Name
+						th(bgcolor="#A5FF7F" height="50")
+							| Booked From
+						th(bgcolor="#A5FF7F" height="50")
+							| Booked To
+						th(bgcolor="#A5FF7F" height="50")
+							| View
+						each val in subscription
+							each dat in val.subscribedto
+								tr
+									td
+										| #{val.dataSetId}
+									td
+										| #{dat.sensorname}
+									td
+										| #{val.from}
+									td
+										| #{val.to}
+									td(align="center")
+										input(type="checkbox" name="check" value="#{val.dataSetId}"+"+"+"#{dat.sensorId}"+"+"+"#{val.from}"+"+"+"#{val.to}")
+										input(type="hidden" name="from" value="#{dat.from}")
+										input(type="hidden" name="to" value="#{to}")
+					br
+					br
+					input(class="ui inverted blue button" type="submit" value="View Selected Sensor Data")
 block post_wrap
 	

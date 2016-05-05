@@ -1,0 +1,96 @@
+extends ../layout.jade
+block siden
+	include sidenav.jade
+
+block main
+	script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js")
+	script(src="https://code.highcharts.com/highcharts.js")
+	script(src="https://code.highcharts.com/modules/exporting.js")
+	script.
+		var count=0;
+	each val,indi in data
+		each det,indu in val.data
+			script(type="text/javascript").
+				var cat=[];
+				for(i=0;i<#{val.catego.length};i++)
+					cat.push("#{val.catego[i]}");
+			script(type="text/javascript" async defer).
+				$(function () {
+					var con = "#container"+count;
+					$(con).highcharts({
+						chart: {
+							zoomType: 'x'
+						},
+						title: {
+							text: "#{val.station}",
+							x: -20 //center
+						},	
+							subtitle: {
+							text: 'Source: Cencoos.org',
+							x: -20
+						},
+						xAxis: {
+							categories:cat
+						},
+						yAxis: {
+							title: {
+							text: "#{val.yname[indu]}"
+							},
+							plotLines: [{
+								value: 0,
+								width: 1,
+								color: '#808080'
+							}]
+						},
+						plotOptions: {
+							area: {
+								fillColor: {
+									linearGradient: {
+										x1: 0,
+										y1: 0,
+										x2: 0,
+										y2: 1
+									},
+								stops: [
+									[0, Highcharts.getOptions().colors[0]],
+									[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+								]
+								},
+								marker: {
+									radius: 2
+								},
+								lineWidth: 1,
+								states: {
+									hover: {
+									lineWidth: 1
+								}
+								},
+								threshold: null
+							}
+						},
+						tooltip: {
+							valueSuffix: ''
+						},
+						legend: {
+							layout: 'vertical',
+							align: 'right',
+							verticalAlign: 'middle',
+							borderWidth: 0
+						},
+						series: [{
+							type:'area',
+							name: "#{val.yname[indu]}",
+							data: [#{det}]
+						}]
+					});
+					count++;
+				});
+	div.editor
+		block content
+			div.center
+				-var n =0;
+				while n < nog
+					div(id="container"+n++ style="min-width: 310px; height: 400px; margin: 0 auto")
+													
+block post_wrap
+	
