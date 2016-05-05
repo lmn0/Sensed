@@ -61,7 +61,8 @@ var App = {
 		app.use("/", require("./modules/pages/pages.js"));
 		app.use("/users", require("./modules/authentication/authentication.js"));
     	app.use("/editor", require("./modules/editor/dashboard.js"));
-    	app.use("/sensor", require("./modules/editor/sensor.js"));
+    	app.use("/data", require("./modules/data/data.js"));
+    	
 		// ====
 	},
 
