@@ -6,7 +6,7 @@ var mongodb = require('mongodb');
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 var MongoClient = mongodb.MongoClient;
 // Connection URL. This is where your mongodb server is running.
-var url = 'mongodb://localhost:27017/Sensed';
+var url = 'mongodb://tjs:password@ds013971.mlab.com:13971/sensed';
 var assert = require('assert');
 
 
@@ -20,7 +20,10 @@ var Api = {
         $set: { "sid": req.sessionID }
       }, function(err, results) {
       console.log(results);
-      res.redirect('/editor/dashboard');
+      if(results.typeofAccnt == "admin")
+        res.redirect('/admin/dashboard');
+      else
+        res.redirect('/editor/dashboard');
       res.end();
    });
 };
@@ -84,7 +87,7 @@ MongoClient.connect(url, function (err, db) {
 createaccount:function(req,res,cb){
 
     var addUser = function(db, callback) {
-   var cursor =db.collection('users').insertOne( { "email": req.body.email,"password":req.body.password,"sid":req.sessionID},function(err, result) {
+   var cursor =db.collection('users').insertOne( { "accountType":"user","email": req.body.email,"password":req.body.password,"sid":req.sessionID},function(err, result) {
       assert.equal(err, null);
       console.log(result);
       res.redirect('/editor/dashboard');

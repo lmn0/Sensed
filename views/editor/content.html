@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+src="http://maps.googleapis.com/maps/api/js">
+</script>
+
+<script>
+//var myCenter=new google.maps.LatLng(51.508742,-0.120850);
+var myCenter=new google.maps.LatLng(38.0657,-122.2302);
+
+function initialize()
+{
+var mapProp = {
+  center:myCenter,
+  zoom:5,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+var marker=new google.maps.Marker({
+  position:myCenter,
+  });
+
+marker.setMap(map);
+
+var infowindow = new google.maps.InfoWindow({
+  content:"Carquinez"
+  });
+
+google.maps.event.addListener(marker, 'click', function() {
+	//Change the colour of the marker
+	//get the position of the clicked marker
+  infowindow.open(map,marker);
+	
+	document.getElementById("latSelected").value=this.position.lat();
+	document.getElementById("lngSelected").value=this.position.lng();
+/* 	alert('hi'); */
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+//alert('Hi');
+</script>
+</head>
+
+<body>
+
+<form action="/sensor/getSensors" method="GET">
+<div id="googleMap" style="width:500px;height:380px;"></div>
+#{result.dataSetId}
+
+
+</form>
+
+
+<form action="/sensor/selectSensor" method="POST">
+
+
+<input type="submit" value="Retrieve Data" class="btn flt-right"/>
+<input type="hidden" id="lngSelected" name="lngSelected"/>
+<input type="hidden" id="latSelected" name="latSelected"/>
+<!-- <input type="hidden" id="StationSelected"/> -->
+
+</form>
+</body>
+</html>
+	
