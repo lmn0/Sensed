@@ -1,0 +1,84 @@
+extends ../layout.jade
+
+block siden
+	include sidenav.jade
+
+block main
+	script(type='text/javascript').
+
+		var jsSensorData=!{JSON.stringify(sensorsData)};
+
+		function initMap() {
+
+			var map = new google.maps.Map(document.getElementById('map1'), {
+				zoom: 6,
+				center: {lat: jsSensorData[0]["location"]["lat"], lng: jsSensorData[0]["location"]["lng"]}
+			});
+
+			for (i = 0; i < jsSensorData.length; i++) {
+
+			//alert(jsSensorData[i]["location"]["lat"]);
+
+			//alert(jsSensorData.length);
+			//alert(i);
+
+
+
+				var marker = new google.maps.Marker({
+				position: {lat: jsSensorData[i]["location"]["lat"], lng: jsSensorData[i]["location"]["lng"]},
+				map: map,
+				title: 'Sensor DataSet'
+
+			});
+			var infowindow = new google.maps.InfoWindow({
+			content:jsSensorData[i]["station"]
+			});
+
+			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {
+
+			if(document.getElementById("but") != null){
+
+				document.getElementById("but").style.visibility="visible";
+				document.getElementById("dateFrom").style.visibility="visible";
+				document.getElementById("dateTo").style.visibility="visible";
+
+
+				var rows="";
+
+				for(j=0;j< jsSensorData[i]["features"].length;j++){
+				rows+="<tr><td>"+jsSensorData[i]["dataSetId"]+"</td><td>"+jsSensorData[i]["features"][j]["sensorname"]+"</td><td><input type='checkbox' name='check' value="+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"></td></tr>";
+				}
+
+				document.getElementById("tab").innerHTML="<table border='1' cellpadding='5' cellspacing='5' width='100%'><th bgcolor='#A5FF7F' height='50'>Dataset ID</th><th bgcolor='#A5FF7F' height='50'>Sensor Name</th><th bgcolor='#A5FF7F' height='50'>View</th>"+rows+"</table>"
+			}
+			else
+				alert('Error in rendering Table Data !!! Refresh Page');
+
+			infowindow.setContent(jsSensorData[i]["station"]);
+			infowindow.open(map, marker);
+			}
+			})(marker, i));
+
+
+			marker.setMap(map);
+
+		}
+
+			google.maps.event.addDomListener(window, 'load', initialize);
+
+		}
+
+	form(action="/sensor/subscribeSensor", method="POST")
+					div(id="map1" style="position:left;height:400px; width:100%;")
+					p
+					div(id="tab")
+					p
+					input(id="dateFrom" name="dateFrom" style="visibility:hidden" type="date" )
+					p
+					input(id="dateTo" name="dateTo" style="visibility:hidden" type="date" )
+					p
+					input(class="ui inverted blue button" id="but" style="visibility:hidden" type="submit" value="Subscribe")
+
+block post_wrap
+	script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJHfwBxIqgN-TUtCwkaHZiBPoqYQipmLI&callback=initMap" async defer)
