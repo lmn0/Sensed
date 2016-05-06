@@ -1,11 +1,6 @@
 extends ../layout.jade
 block siden
-	nav#sidenav
-		p
-			a(id="sidemen" href="/editor/dashboard") Dashboard
-			a(id="sidemen" href="/editor/sensorInstance") Sensor Instance
-			a(id="sidemen" href="/editor/account") Account
-			a(id="sidemen" href="/editor/billing") Billing
+	include sidenav.jade
 
 block main
 	div.editor
