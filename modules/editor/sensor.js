@@ -123,101 +123,108 @@ router.post(['/', '/:action'], function(req, res, next) {
 		//console.log("=========req.body.check==================");
 		//console.log(req.body.check);
 		//console.log("===========================");
-		
+
 		//console.log("=========req.body.hidden==================");
 		//console.log(req.body.hidden);
 		//console.log("===========================");
-		
-		var selectedElements= new Array();;
-		var array = req.body.hidden.split(',');
-		
-		for(p=0;p<req.body.check.length;p++)
+
+		if(req.body.check.length>0)
 		{
-			//console.log("=========array elements==================");
-			var checkIndex=req.body.check[p];
-			//console.log("req.body.check[p] :"+checkIndex);
-			//console.log("array[checkIndex] :"+array[checkIndex]);
-			
-			selectedElements[p]=array[checkIndex];
-			
-			//console.log("========================================");
-			
-		}
-			
-		
-		
-//		for(q=0;q<selectedElements.length;q++)
+
+			var selectedElements= new Array();;
+			var array = req.body.hidden.split(',');
+
+			for(p=0;p<req.body.check.length;p++)
+			{
+				//console.log("=========array elements==================");
+				var checkIndex=req.body.check[p];
+				//console.log("req.body.check[p] :"+checkIndex);
+				//console.log("array[checkIndex] :"+array[checkIndex]);
+
+				selectedElements[p]=array[checkIndex];
+
+				//console.log("========================================");
+
+			}
+
+
+
+//			for(q=0;q<selectedElements.length;q++)
 //			{
 //			console.log("SELECTED FINAL ELEMETS");
 //			console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 //			console.log("selectedElements["+q+"]: "+selectedElements[q]);
-//			
+
 //			}
-		
-		/*for (x=0;x<req.body.check.length;x++)
+
+			/*for (x=0;x<req.body.check.length;x++)
 			{
-			
+
 			console.log("=========array elements==================");
 			console.log(array[checkIndex[x]]);
 			console.log("===========================");
-			
-			
+
+
 			}*/
-		
-		
-
-		//console.log(req.body.dateFrom);
-		//console.log(req.body.dateTo);
-
-		//gov_noaa_nws_kmry+wind_speed+2016-01-06T00:00:00Z+2016-01-13T18:45:00Z
-		//,
-		//gov_noaa_nws_kmry+air_temperature+2016-01-06T00:00:00Z+2016-01-13T18:45:00Z
-		//'gov_noaa_nws_kmry+wind_speed+Wind'
-
-		var tempSensorStation="";
-		var tempSensorDataSetID="";
-		var tempSensorId="";
-		var tempSensorName="";
-		var tempSensorLat="";
-		var tempSensorLng="";
-		var userid="";
-		var tempFrom=new Date(req.body.dateFrom);
-		var tempTo=new Date(req.body.dateTo);
-		var te="";
-
-		console.log("Type of selectedElements is"+typeof(selectedElements));
 
 
-		if(typeof selectedElements != typeof "string"){
-			for(i=0;i<selectedElements.length;i++)
-			{
-				console.log("----------------------------------");
-				console.log("----------------------------------");
-				
-				tempSensorStation=selectedElements[i].split("+")[0];
-				tempSensorDataSetID=selectedElements[i].split("+")[1];
-				tempSensorLat=Number(selectedElements[i].split("+")[2]);
-				tempSensorLng=Number(selectedElements[i].split("+")[3]);
-				tempSensorId=selectedElements[i].split("+")[4];
-				tempSensorName=selectedElements[i].split("+")[5];
-				
-				
-				userid="571dc7758e70a5e6101dcac1";
-				
-				console.log("Here comes the BOOOMMM");
-				
-				console.log("tempSensorStation: "+tempSensorStation);
-				console.log("tempSensorDataSetID: "+tempSensorDataSetID);
-				console.log("tempSensorLat: "+tempSensorLat);
-				console.log("tempSensorLng: "+tempSensorLng);
-				console.log("tempSensorId: "+tempSensorId);
-				console.log("tempSensorName: "+tempSensorName);
 
-				console.log("----------------------------------");
-				console.log("----------------------------------");
-								
+			//console.log(req.body.dateFrom);
+			//console.log(req.body.dateTo);
 
-				/*//Hard coded--- Only for testing purpose pls
+			//gov_noaa_nws_kmry+wind_speed+2016-01-06T00:00:00Z+2016-01-13T18:45:00Z
+			//,
+			//gov_noaa_nws_kmry+air_temperature+2016-01-06T00:00:00Z+2016-01-13T18:45:00Z
+			//'gov_noaa_nws_kmry+wind_speed+Wind'
+
+			var tempSensorStation="";
+			var tempSensorDataSetID="";
+			var tempSensorId="";
+			var tempSensorName="";
+			var tempSensorLat="";
+			var tempSensorLng="";
+			var userid="";
+			//var tempFrom=new Date(req.body.dateFrom);
+			//var tempTo=new Date(req.body.dateTo);
+			var tempFrom=req.body.dateFrom;
+			var tempTo=req.body.dateTo;
+			var te="";
+
+			console.log("Type of selectedElements is"+typeof(selectedElements));
+
+
+			if(typeof selectedElements != typeof "string"){
+				for(i=0;i<selectedElements.length;i++)
+				{
+					console.log("----------------------------------");
+					console.log("----------------------------------");
+
+					tempSensorStation=selectedElements[i].split("+")[0];
+					tempSensorDataSetID=selectedElements[i].split("+")[1];
+					tempSensorLat=Number(selectedElements[i].split("+")[2]);
+					tempSensorLng=Number(selectedElements[i].split("+")[3]);
+					tempSensorId=selectedElements[i].split("+")[4];
+					tempSensorName=selectedElements[i].split("+")[5];
+
+
+					userid="571dc7758e70a5e6101dcac1";
+
+					console.log("Here comes the BOOOMMM");
+
+					console.log("tempSensorStation: "+tempSensorStation);
+					console.log("tempSensorDataSetID: "+tempSensorDataSetID);
+					console.log("tempSensorLat: "+tempSensorLat);
+					console.log("tempSensorLng: "+tempSensorLng);
+					console.log("tempSensorId: "+tempSensorId);
+					console.log("tempSensorName: "+tempSensorName);
+
+					console.log("----------------------------------");
+					console.log("----------------------------------");
+
+
+					var row=selectedElements.length;
+					
+					/*//Hard coded--- Only for testing purpose pls
 					//tempSensorDataSetID="gov_noaa_nws_kmry";
 					//tempSensorLat="36.5833333333333";
 					//tempSensorLng="-121.85";
@@ -227,8 +234,8 @@ router.post(['/', '/:action'], function(req, res, next) {
 
 					//tempSensorName="Air Temperature (Degree F)";
 					//tempSensorId="air_temperature";
-				 	*/
-				
+					 */
+
 					/*console.log("tempSensorStation: "+tempSensorStation);
 					console.log("tempSensorDataSetID: "+tempSensorDataSetID);
 					console.log("tempSensorLat: "+tempSensorLat);
@@ -249,6 +256,8 @@ router.post(['/', '/:action'], function(req, res, next) {
 						}
 						else
 						{
+							var rowlength = this.rowlength;
+							
 							console.log("----------------------.....................");
 							console.log("result:"+result);
 							if(result==tempSensorDataSetID)
@@ -303,11 +312,11 @@ router.post(['/', '/:action'], function(req, res, next) {
 //											console.log("tempSensorLng: "+tempSensorLng);
 //											console.log("tempSensorId: "+tempSensorId);
 //											console.log("tempSensorName: "+tempSensorName);
-//
+
 //											console.log("----------------------------------");
 //											console.log("----------------------------------");
-											
-											
+
+
 											db.collection('subscription').update(
 													{"userid": userid, "dataSetId": tempSensorDataSetID},
 
@@ -329,16 +338,18 @@ router.post(['/', '/:action'], function(req, res, next) {
 								db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName}]});
 							}
 						}
-					});
+					}.bind(this));
 				}
 			}
-		
-			res.status(200).redirect('/sensor/getSensors');
-		} 
+
+		}
+
+		res.status(200).redirect('/sensor/getSensors');
+	} 
 		checkSession(req,res,findSubscription);
 
 		break;
 	}
-	});
+});
 
-				module.exports = router;
+module.exports = router;
