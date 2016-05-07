@@ -42,15 +42,22 @@ block main
 				document.getElementById("but").style.visibility="visible";
 				document.getElementById("dateFrom").style.visibility="visible";
 				document.getElementById("dateTo").style.visibility="visible";
+				document.getElementById("lableFrom").style.visibility="visible";
+				document.getElementById("lableTo").style.visibility="visible";
 
 
+
+				document.getElementById("hidden").value="";
 				var rows="";
 
 				for(j=0;j< jsSensorData[i]["features"].length;j++){
-				rows+="<tr><td>"+jsSensorData[i]["dataSetId"]+"</td><td>"+jsSensorData[i]["features"][j]["sensorname"]+"</td><td><input type='checkbox' name='check' value="+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"></td></tr>";
+				//rows+="<tr><td>"+jsSensorData[i]["dataSetId"]+"</td><td>"+jsSensorData[i]["features"][j]["sensorname"]+"</td><td><input type='checkbox' name='check' value="+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"></td></tr>";
+				rows+="<tr><td>"+jsSensorData[i]["dataSetId"]+"</td><td>"+jsSensorData[i]["features"][j]["sensorname"]+"</td><td><input type='checkbox' name='check' value="+j+"></td></tr>";
+				document.getElementById("hidden").value=document.getElementById("hidden").value+jsSensorData[i]["station"]+"+"+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"+"+jsSensorData[i]["features"][j]["sensorname"]+",";
+
 				}
 
-				document.getElementById("tab").innerHTML="<table border='1' cellpadding='5' cellspacing='5' width='100%'><th bgcolor='#A5FF7F' height='50'>Dataset ID</th><th bgcolor='#A5FF7F' height='50'>Sensor Name</th><th bgcolor='#A5FF7F' height='50'>View</th>"+rows+"</table>"
+				document.getElementById("tab").innerHTML="<table style='float:left' border='1' cellpadding='5' cellspacing='5' width='60%'><th bgcolor='#A5FF7F' height='50'>Dataset ID</th><th bgcolor='#A5FF7F' height='50'>Sensor Name</th><th bgcolor='#A5FF7F' height='50'>View</th>"+rows+"</table>"
 			}
 			else
 				alert('Error in rendering Table Data !!! Refresh Page');
@@ -74,11 +81,15 @@ block main
 					p
 					div(id="tab")
 					p
-					input(id="dateFrom" name="dateFrom" style="visibility:hidden" type="date" )
+					label(id="lableFrom" name="lableFrom" style="visibility:hidden;font-weight: bold; margin-left:5%;margin-top:2%;margin-right:2%" value="From") From:
+					input(id="dateFrom" name="dateFrom" style="visibility:hidden;margin-top:2%" type="date"  required = "required")
 					p
-					input(id="dateTo" name="dateTo" style="visibility:hidden" type="date" )
+					label(id="lableTo" name="lableTo" style="visibility:hidden;font-weight: bold; margin-left:5%;margin-right:2%" value="To") To:
+					input(id="dateTo" name="dateTo" style="visibility:hidden;" type="date" max=new Date() required = "required" )
 					p
-					input(class="ui inverted blue button" id="but" style="visibility:hidden" type="submit" value="Subscribe")
+					input(class="ui inverted blue button" id="but" style="visibility:hidden; margin-left:5%" type="submit" value="Subscribe" onclick="setValues()")
+					p
+					input(id="hidden" name="hidden" style="visibility:hidden;" type="input" value="")
 
 block post_wrap
 	script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJHfwBxIqgN-TUtCwkaHZiBPoqYQipmLI&callback=initMap" async defer)
