@@ -80,7 +80,7 @@ router.get(['/', '/:action'], function(req, res, next) {
 
 				});
 
-			});
+			}); 
 		}
 
 
@@ -99,7 +99,7 @@ router.get(['/', '/:action'], function(req, res, next) {
 		});
 		break;
 	}
-});
+}); 	
 
 
 
@@ -123,48 +123,48 @@ router.post(['/', '/:action'], function(req, res, next) {
 		//console.log("=========req.body.check==================");
 		//console.log(req.body.check);
 		//console.log("===========================");
-
+		
 		//console.log("=========req.body.hidden==================");
 		//console.log(req.body.hidden);
 		//console.log("===========================");
-
+		
 		var selectedElements= new Array();;
 		var array = req.body.hidden.split(',');
-
+		
 		for(p=0;p<req.body.check.length;p++)
 		{
 			//console.log("=========array elements==================");
 			var checkIndex=req.body.check[p];
 			//console.log("req.body.check[p] :"+checkIndex);
 			//console.log("array[checkIndex] :"+array[checkIndex]);
-
+			
 			selectedElements[p]=array[checkIndex];
-
+			
 			//console.log("========================================");
-
+			
 		}
-
-
-
+			
+		
+		
 //		for(q=0;q<selectedElements.length;q++)
 //			{
 //			console.log("SELECTED FINAL ELEMETS");
 //			console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 //			console.log("selectedElements["+q+"]: "+selectedElements[q]);
-//
+//			
 //			}
-
+		
 		/*for (x=0;x<req.body.check.length;x++)
 			{
-
+			
 			console.log("=========array elements==================");
 			console.log(array[checkIndex[x]]);
 			console.log("===========================");
-
-
+			
+			
 			}*/
-
-
+		
+		
 
 		//console.log(req.body.dateFrom);
 		//console.log(req.body.dateTo);
@@ -193,19 +193,19 @@ router.post(['/', '/:action'], function(req, res, next) {
 			{
 				console.log("----------------------------------");
 				console.log("----------------------------------");
-
+				
 				tempSensorStation=selectedElements[i].split("+")[0];
 				tempSensorDataSetID=selectedElements[i].split("+")[1];
 				tempSensorLat=Number(selectedElements[i].split("+")[2]);
 				tempSensorLng=Number(selectedElements[i].split("+")[3]);
 				tempSensorId=selectedElements[i].split("+")[4];
 				tempSensorName=selectedElements[i].split("+")[5];
-
-
+				
+				
 				userid="571dc7758e70a5e6101dcac1";
-
+				
 				console.log("Here comes the BOOOMMM");
-
+				
 				console.log("tempSensorStation: "+tempSensorStation);
 				console.log("tempSensorDataSetID: "+tempSensorDataSetID);
 				console.log("tempSensorLat: "+tempSensorLat);
@@ -215,7 +215,7 @@ router.post(['/', '/:action'], function(req, res, next) {
 
 				console.log("----------------------------------");
 				console.log("----------------------------------");
-
+								
 
 				/*//Hard coded--- Only for testing purpose pls
 					//tempSensorDataSetID="gov_noaa_nws_kmry";
@@ -228,7 +228,7 @@ router.post(['/', '/:action'], function(req, res, next) {
 					//tempSensorName="Air Temperature (Degree F)";
 					//tempSensorId="air_temperature";
 				 	*/
-
+				
 					/*console.log("tempSensorStation: "+tempSensorStation);
 					console.log("tempSensorDataSetID: "+tempSensorDataSetID);
 					console.log("tempSensorLat: "+tempSensorLat);
@@ -306,8 +306,8 @@ router.post(['/', '/:action'], function(req, res, next) {
 //
 //											console.log("----------------------------------");
 //											console.log("----------------------------------");
-
-
+											
+											
 											db.collection('subscription').update(
 													{"userid": userid, "dataSetId": tempSensorDataSetID},
 
@@ -332,9 +332,9 @@ router.post(['/', '/:action'], function(req, res, next) {
 					});
 				}
 			}
-
+		
 			res.status(200).redirect('/sensor/getSensors');
-		}
+		} 
 		checkSession(req,res,findSubscription);
 
 		break;
