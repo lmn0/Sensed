@@ -55,14 +55,80 @@ var checkSession =function(req,res,actioncallback){
 //GET Req
 router.get(['/', '/:action'], function(req, res, next) {
   var action = req.params.action;
+switch(action) {
 
-  console.log(req.ip);
-  switch(action) {
-    case "display":
+    case "retrieveMobileData":
+      console.log("I'm here");
+    break;
 
+    case "mobileSensor":
+
+    var getMobiles=function(db,userdoc,callback){
+          var findMobile = function(db, callback) {
+          var found=0;
+    console.log(req.sessionID);
+   var cursor =db.collection('mobileReg').find({"userid":""+userdoc._id}).toArray(function(err,result){
+      assert.equal(err, null);
+      if (result != null) {
+        //console.log(doc);
+
+           res.status(200).render("data/mobiles.jade", {
+          data: result,
+          pageTitle: "Sensed! - Dashboard",
+          showRegister: true,
+          showlogin:false
+        });
+
+         //actioncallback(db,result,function(){db.close();});
+      } else {
+        //console.log("user not logged in");
+        res.status(200).render("data/mobiles.jade", {
+          data: [],
+          pageTitle: "Sensed! - Dashboard",
+          showRegister: true,
+          showlogin:false
+        });
+      }
+      //res.redirect('dashboard');
+   });
+   
+};
+
+        MongoClient.connect(url, function (err, db) {
+        if (err) {
+          console.log('Unable to connect to the mongoDB server. Error:', err);
+        } else {
+    //HURRAY!! We are connected. :)
+          console.log('Connection established to', url);
+
+    // Get the documents collection
+    
+          findMobile(db,function(){db.close();});
+
+        }
+      });
+    }
+    checkSession(req,res,getMobiles);
 
     break;
+
+    case "addphone":
+
+    var sendQRCode=function(db,userdoc,callback){
+      var str="mobilesensor"+"="+uuid.v4()+"="+userdoc._id;
+      console.log(str);
+       res.status(200).render("data/qrcode.jade", {
+            data:str,
+          pageTitle: "Sensed! - Dashboard",
+          showRegister: true,
+          showlogin:false
+          });
+    }
+    checkSession(req,res,sendQRCode);
+    break;
   }
+  console.log(req.ip);
+  
 });
 
 
@@ -70,7 +136,93 @@ router.get(['/', '/:action'], function(req, res, next) {
 router.post(['/', '/:action'], function(req, res, next) {
   var action = req.params.action;
 
-  switch(action){
+ switch(action){
+
+    case "mobileDataRetrieve":
+    var getSensorData=function(db,userdoc,callback){
+      var cursor =db.collection('mobileReg').find({"userid":""+userdoc._id}).toArray(function(err,result){
+        var userid="";
+          var modids=[];
+          var i=0;
+
+        if(typeof req.body.check != typeof "string"){
+          for(i=0;i<req.body.check.length;i++)
+        {
+          userid=req.body.check[i].split("+")[0];
+          mobids.push(req.body.check[i].split("+")[1]);
+        }
+        }
+         else
+        {
+            userid=req.body.check.split("+")[0];
+          mobids.push(req.body.check.split("+")[1]);
+        }
+
+
+        //GET DATA FROM THE MONGODB to display in charts !
+
+        var getTempData = function(db, callback) {
+    console.log(req.body.userId);
+   var cursor =db.collection('mobileTemp').find( { "userid": userdoc._id,"mobid":$in:mobids}).toArray(function(err,doc){
+      assert.equal(err, null);
+      
+      if (doc != null) {
+        //console.log(doc);
+         res.status(200).render("data/mobileData.jade", {
+          data: doc,
+          nog:i,
+          pageTitle: "Sensed! - Dashboard",
+          showRegister: true,
+          showlogin:false
+        });
+      } else {
+        //console.log(doc);
+        res.send(404);
+      }
+      //res.redirect('dashboard');
+   });
+};
+
+          MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    //HURRAY!! We are connected. :)
+    console.log('Connection established to', url);
+
+    // Get the documents collection
+    getTempData(db,function(){db.close();});
+  }
+
+      // assert.equal(err, null);
+      // if (result != null) {
+      //   //console.log(doc);
+
+      //      res.status(200).render("data/mobiles.jade", {
+      //     data: result,
+      //     pageTitle: "Sensed! - Dashboard",
+      //     showRegister: true,
+      //     showlogin:false
+      //   });
+
+         //actioncallback(db,result,function(){db.close();});
+      } else {
+        //console.log("user not logged in");
+        res.status(200).render("data/mobileData.jade", {
+          data: [],
+          pageTitle: "Sensed! - Dashboard",
+          showRegister: true,
+          showlogin:false
+        });
+      }
+      //res.redirect('dashboard');
+   });
+
+    } 
+
+    checkSession(req,res,getSensorData);
+    break;
+
     case "retrieve":
 
     //console.log(Object.keys(res.body).length)
@@ -214,6 +366,45 @@ router.post(['/', '/:action'], function(req, res, next) {
       } 
 
     checkSession(req,res,findSubscription);
+
+    break;
+    case "mobileMongoInsert":
+
+    var addUser = function(db, callback) {
+   var cursor =db.collection('mobileReg').insertOne( { "userid":req.body.userId,"mobid": req.body.mobId,"features":["Latitude & Longitude","Temperature","Pressure"]},function(err, result) {
+      assert.equal(err, null);
+      console.log(result);
+      res.send(200);
+   });
+};
+
+var findUser = function(db, callback) {
+    console.log(req.body.userid);
+   var cursor =db.collection('users').findOne( { "_id": req.body.userid} ,function(err, doc) {
+      assert.equal(err, null);
+      if (doc != null) {
+        console.log(doc);
+         res.send(200,"loggedin");
+      } else {
+        console.log(doc);
+        addUser(db,function(){db.close();})
+      }
+      //res.redirect('dashboard');
+   });
+};
+
+  MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    //HURRAY!! We are connected. :)
+    console.log('Connection established to', url);
+
+    // Get the documents collection
+    findUser(db,function(){db.close();});
+  }
+  
+});
 
     break;
   }
