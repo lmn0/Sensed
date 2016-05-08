@@ -9,6 +9,9 @@ var express = require('express'),
     request=require("request");
 var mongodb = require('mongodb');
 var http = require('http');
+var uuid=require('node-uuid');  
+var fs = require('fs');
+
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 var MongoClient = mongodb.MongoClient;
 // Connection URL. This is where your mongodb server is running.
@@ -55,7 +58,9 @@ var checkSession =function(req,res,actioncallback){
 //GET Req
 router.get(['/', '/:action'], function(req, res, next) {
   var action = req.params.action;
-switch(action) {
+
+  console.log(req.ip);
+  switch(action) {
 
     case "retrieveMobileData":
       console.log("I'm here");
@@ -127,8 +132,6 @@ switch(action) {
     checkSession(req,res,sendQRCode);
     break;
   }
-  console.log(req.ip);
-  
 });
 
 
@@ -136,7 +139,7 @@ switch(action) {
 router.post(['/', '/:action'], function(req, res, next) {
   var action = req.params.action;
 
- switch(action){
+  switch(action){
 
     case "mobileDataRetrieve":
     var getSensorData=function(db,userdoc,callback){
@@ -163,7 +166,7 @@ router.post(['/', '/:action'], function(req, res, next) {
 
         var getTempData = function(db, callback) {
     console.log(req.body.userId);
-   var cursor =db.collection('mobileTemp').find( { "userid": userdoc._id,"mobid":$in:mobids}).toArray(function(err,doc){
+   var cursor =db.collection('mobileTemp').find( { "userid": userdoc._id,"mobid":{$in:mobids}}).toArray(function(err,doc){
       assert.equal(err, null);
       
       if (doc != null) {
@@ -206,20 +209,12 @@ router.post(['/', '/:action'], function(req, res, next) {
       //   });
 
          //actioncallback(db,result,function(){db.close();});
-      } else {
-        //console.log("user not logged in");
-        res.status(200).render("data/mobileData.jade", {
-          data: [],
-          pageTitle: "Sensed! - Dashboard",
-          showRegister: true,
-          showlogin:false
-        });
-      }
+      
       //res.redirect('dashboard');
    });
 
-    } 
-
+    });
+    }
     checkSession(req,res,getSensorData);
     break;
 
