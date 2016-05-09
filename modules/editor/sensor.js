@@ -359,7 +359,7 @@ router.post(['/', '/:action'], function(req, res, next) {
 
 
 								console.log("-------------Insert everything -- NEW ROW---------------------");
-								db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName}]});
+								db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName}]});
 							}
 						}
 					}.bind({i:i}));
