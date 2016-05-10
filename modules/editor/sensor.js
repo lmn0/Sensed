@@ -186,8 +186,13 @@ router.post(['/', '/:action'], function(req, res, next) {
 			var userid="";
 			//var tempFrom=new Date(req.body.dateFrom);
 			//var tempTo=new Date(req.body.dateTo);
-			var tempFrom=req.body.dateFrom;
-			var tempTo=req.body.dateTo;
+
+			var tempFrom=req.body.dateFrom+"T"+req.body.timeFrom+"Z";
+			var tempTo=req.body.dateTo+"T"+req.body.timeTo+"Z";
+
+console.log("tempFrom"+tempFrom);
+console.log("tempTo"+tempTo);
+
 			var te="";
 
 			console.log("Type of selectedElements is"+typeof(selectedElements));
