@@ -7,7 +7,25 @@ block main
 	script(type='text/javascript').
 
 		var jsSensorData=!{JSON.stringify(sensorsData)};
-		
+
+		function checkSelect()
+		{
+			var select= document.getClassByName("")
+
+			var x = document.getElementsByClassName("check");
+			var i,count=0;
+			for (i = 0; i < x.length; i++) {
+				if(x[i].checked)
+				{
+					count++;
+				}
+				if(count==0)
+				{
+					alert("Select a sensor and try again");
+				}
+			}
+		}
+
 		function initMap() {
 
 			var map = new google.maps.Map(document.getElementById('map1'), {
@@ -21,7 +39,7 @@ block main
 
 			//alert(jsSensorData.length);
 			//alert(i);
-			
+
 
 
 				var marker = new google.maps.Marker({
@@ -44,7 +62,8 @@ block main
 				document.getElementById("dateTo").style.visibility="visible";
 				document.getElementById("lableFrom").style.visibility="visible";
 				document.getElementById("lableTo").style.visibility="visible";
-				
+				document.getElementById("timeFrom").style.visibility="visible";
+				document.getElementById("timeTo").style.visibility="visible";
 				
 				
 				document.getElementById("hidden").value="";
@@ -54,7 +73,7 @@ block main
 				//rows+="<tr><td>"+jsSensorData[i]["dataSetId"]+"</td><td>"+jsSensorData[i]["features"][j]["sensorname"]+"</td><td><input type='checkbox' name='check' value="+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"></td></tr>";
 				rows+="<tr><td>"+jsSensorData[i]["station"]+"</td><td>"+jsSensorData[i]["features"][j]["sensorname"]+"</td><td><input type='checkbox' name='check' value="+j+"></td></tr>";
 				document.getElementById("hidden").value=document.getElementById("hidden").value+jsSensorData[i]["station"]+"+"+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"+"+jsSensorData[i]["features"][j]["sensorname"]+",";
-				
+
 				}
 
 				document.getElementById("tab").innerHTML="<table style='float:left' border='1' cellpadding='5' cellspacing='5' width='60%'><th bgcolor='#A5FF7F' height='50'>Station Name</th><th bgcolor='#A5FF7F' height='50'>Sensor Name</th><th bgcolor='#A5FF7F' height='50'>View</th>"+rows+"</table>"
@@ -81,13 +100,15 @@ block main
 					p
 					div(id="tab")
 					p
-					label(id="lableFrom" name="lableFrom" style="visibility:hidden;font-weight: bold; margin-left:5%;margin-top:2%;margin-right:2%" value="From") From: 
+					label(id="lableFrom" name="lableFrom" style="visibility:hidden;font-weight: bold; margin-left:3%;margin-top:2%;margin-right:2%" value="From") From:
 					input(id="dateFrom" name="dateFrom" style="visibility:hidden;margin-top:2%" type="date"  required = "required")
+					input(id="timeFrom" name="timeFrom" style="visibility:hidden;margin-top:2%" type="time"  required = "required")
 					p
-					label(id="lableTo" name="lableTo" style="visibility:hidden;font-weight: bold; margin-left:5%;margin-right:2%" value="To") To:  
+					label(id="lableTo" name="lableTo" style="visibility:hidden;font-weight: bold; margin-left:3%;margin-right:2%" value="To") To:
 					input(id="dateTo" name="dateTo" style="visibility:hidden;" type="date" max=new Date() required = "required" )
+					input(id="timeTo" name="timeTo" style="visibility:hidden;margin-top:2%" type="time"  required = "required")
 					p
-					input(class="ui inverted blue button" id="but" style="visibility:hidden; margin-left:5%" type="submit" value="Subscribe" onclick="setValues()")
+					input(class="ui inverted blue button" id="but" style="visibility:hidden; margin-left:5%" type="submit" value="Subscribe" onclick="checkSelect()")
 					p
 					input(id="hidden" name="hidden" style="visibility:hidden;" type="input" value="")
 
