@@ -1,18 +1,39 @@
 extends ../layout.jade
 block siden
-	include sidenav.jade
+    include sidenav.jade
 
 block main
-	div.editor
-		block content
-			div.center
-				form(action="/editor/billlingform", method="POST")
-					COST OF THIS SENSOR -> $4.5 in table form !
-					table
-						tr
-							td
-								#{jsonVariable.sensorName}
-							td
-								#{jsonVariable.sensorType}
-							td
-								
+    div.editor
+        block content
+            div.center
+                form(action="/data/retrieve", method="POST")
+                    .ui.inverted.tabular.menu
+                        .active.item(href="/editor/overview") Overview
+                        a.item(href="/editor/map") Map
+                    table(border="1" cellpadding="5" cellspacing="5" width="100%" height="35")
+                        th(bgcolor="#F7819F" height="50")
+                            | Dataset ID
+                        th(bgcolor="#F7819F" height="50")
+                            | Sensor Name
+                        th(bgcolor="#F7819F" height="50")
+                            | Booked From
+                        th(bgcolor="#F7819F" height="50")
+                            | Booked To
+                        th(bgcolor="#F7819F" height="50")
+                            | Amount
+                        each val in subscription
+                            each dat in val.subscribedto
+                                tr
+                                    td
+                                        | #{val.dataSetId}
+                                    td
+                                        | #{dat.sensorname}
+                                    td
+                                        | #{val.from}
+                                    td
+                                        | #{val.to}
+                                    td
+                                        | #{dat.costPerMonth}
+                    br
+
+block post_wrap

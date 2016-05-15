@@ -95,12 +95,37 @@ router.get(['/', '/:action'], function(req, res, next) {
 
       //Use mongoDB connection.. get all the sensor time and type of sensor for a particular user and display in table form!
 
-      res.status(200).render("editor/billing.jade", {
-        pageTitle: "Sensed! - Dashboard",
-        data:jsonVariable,
-        showRegister: true,
-        showlogin:false
-      });
+          var findSubscription=function(db,userdoc,callback){
+
+              var found=0;
+              console.log("===="+userdoc._id);
+              //console.log("->"+db);
+              var cursor =db.collection('subscription').find({"userid":""+userdoc._id}).toArray(function(err,result){
+                  console.log("->" + JSON.stringify(result));
+                  if(result!=null){
+                      res.status(200).render("editor/billing.jade", {
+                          subscription: result,
+                          pageTitle: "Sensed! - Dashboard",
+                          showRegister: true,
+                          showlogin:false
+                      });
+                  }
+                  else
+                  {
+                      res.status(200).render("editor/billing.jade", {
+                          subscription: [],
+                          pageTitle: "Sensed! - Dashboard",
+                          showRegister: true,
+                          showlogin:false
+                      });
+                      //res.end();
+                  }
+                  //res.end();
+              });
+
+          }
+
+          checkSession(req,res,findSubscription);
       break;
 
       case "map":

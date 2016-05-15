@@ -20,10 +20,10 @@ var Api = {
         $set: { "sid": req.sessionID }
       }, function(err, results) {
       console.log(results);
-      if(results.typeofAccnt == "admin")
-        res.redirect('/admin/dashboard');
+      if(results.accountType == "admin")
+        res.redirect('/admin/adminDas');
       else
-        res.redirect('/editor/dashboard');
+       res.redirect('/editor/dashboard');
       res.end();
    });
 };
