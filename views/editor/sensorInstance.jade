@@ -100,13 +100,13 @@ block main
 					p
 					div(id="tab")
 					p
-					label(id="lableFrom" name="lableFrom" style="visibility:hidden;font-weight: bold; margin-left:3%;margin-top:2%;margin-right:2%" value="From") From:
-					input(id="dateFrom" name="dateFrom" style="visibility:hidden;margin-top:2%" type="date"  required = "required")
-					input(id="timeFrom" name="timeFrom" style="visibility:hidden;margin-top:2%" type="time"  required = "required")
+					label(id="lableFrom" name="lableFrom" style="visibility:hidden;font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%" value="From") From:
+					input(id="dateFrom" name="dateFrom" style="visibility:hidden;margin-top:0.5%" type="date"  required="true")
+					input(id="timeFrom" name="timeFrom" style="visibility:hidden;margin-top:0.5%" type="time"  required="true")
 					p
 					label(id="lableTo" name="lableTo" style="visibility:hidden;font-weight: bold; margin-left:3%;margin-right:2%" value="To") To:
-					input(id="dateTo" name="dateTo" style="visibility:hidden;" type="date" max=new Date() required = "required" )
-					input(id="timeTo" name="timeTo" style="visibility:hidden;margin-top:2%" type="time"  required = "required")
+					input(id="dateTo" name="dateTo" style="visibility:hidden;" type="date"   required="true")
+					input(id="timeTo" name="timeTo" style="visibility:hidden;margin-top:2%" type="time"  required="true")
 					p
 					input(class="ui inverted blue button" id="but" style="visibility:hidden; margin-left:5%" type="submit" value="Subscribe" onclick="checkSelect()")
 					p
