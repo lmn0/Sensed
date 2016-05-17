@@ -25,7 +25,7 @@ block main
 							each dat in val.subscribedto
 								tr
 									td
-										| #{val.dataSetId}
+										| #{val.station}
 									td
 										| #{dat.sensorname}
 									td
@@ -34,8 +34,8 @@ block main
 										| #{val.to}
 									td(align="center")
 										input(type="checkbox" name="check" value="#{val.dataSetId}"+"+"+"#{dat.sensorId}"+"+"+"#{val.from}"+"+"+"#{val.to}")
-										input(type="hidden" name="from" value="#{dat.from}")
-										input(type="hidden" name="to" value="#{to}")
+										input(type="hidden" name="from" value="#{val.from}")
+										input(type="hidden" name="to" value="#{val.to}")
 					br
 					br
 					input(class="ui inverted blue button" type="submit" value="View Selected Sensor Data")

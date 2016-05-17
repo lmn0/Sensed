@@ -1,4 +1,3 @@
-
 //Node modules
 var express = require('express'),
 async = require("async"),
@@ -149,34 +148,6 @@ router.post(['/', '/:action'], function(req, res, next) {
 
 
 
-//			for(q=0;q<selectedElements.length;q++)
-//			{
-//			console.log("SELECTED FINAL ELEMETS");
-//			console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-//			console.log("selectedElements["+q+"]: "+selectedElements[q]);
-
-//			}
-
-			/*for (x=0;x<req.body.check.length;x++)
-			{
-
-			console.log("=========array elements==================");
-			console.log(array[checkIndex[x]]);
-			console.log("===========================");
-
-
-			}*/
-
-
-
-			//console.log(req.body.dateFrom);
-			//console.log(req.body.dateTo);
-
-			//gov_noaa_nws_kmry+wind_speed+2016-01-06T00:00:00Z+2016-01-13T18:45:00Z
-			//,
-			//gov_noaa_nws_kmry+air_temperature+2016-01-06T00:00:00Z+2016-01-13T18:45:00Z
-			//'gov_noaa_nws_kmry+wind_speed+Wind'
-
 			var tempSensorStation="";
 			var tempSensorDataSetID="";
 			var tempSensorId="";
@@ -186,8 +157,13 @@ router.post(['/', '/:action'], function(req, res, next) {
 			var userid="";
 			//var tempFrom=new Date(req.body.dateFrom);
 			//var tempTo=new Date(req.body.dateTo);
-			var tempFrom=req.body.dateFrom;
-			var tempTo=req.body.dateTo;
+
+			var tempFrom=req.body.dateFrom+"T"+req.body.timeFrom+"Z";
+			var tempTo=req.body.dateTo+"T"+req.body.timeTo+"Z";
+
+console.log("tempFrom"+tempFrom);
+console.log("tempTo"+tempTo);
+
 			var te="";
 
 			console.log("Type of selectedElements is"+typeof(selectedElements));
@@ -242,10 +218,8 @@ router.post(['/', '/:action'], function(req, res, next) {
 					//tempSensorDataSetID="gov_noaa_nws_kmry";
 					//tempSensorLat="36.5833333333333";
 					//tempSensorLng="-121.85";
-
 					//tempSensorName="Wind Speed (Knot)";
 					//tempSensorId="wind_speed";
-
 					//tempSensorName="Air Temperature (Degree F)";
 					//tempSensorId="air_temperature";
 					 */
@@ -264,7 +238,10 @@ router.post(['/', '/:action'], function(req, res, next) {
 					// console.log("------------FOR LOOP END----------------------");
 
 
-					db.collection('subscription').distinct( "dataSetId", {"userid": userid, "dataSetId": tempSensorDataSetID} ,function(err, result) {
+					
+				}
+			}
+			db.collection('subscription').distinct( "dataSetId", {"userid": userid, "dataSetId": tempSensorDataSetID} ,function(err, result) {
 
 
 						if(err!=null)
@@ -362,9 +339,7 @@ router.post(['/', '/:action'], function(req, res, next) {
 								db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName}]});
 							}
 						}
-					}.bind({i:i}));
-				}
-			}
+					});
 
 		}
 
