@@ -64,7 +64,7 @@ var App = {
     	app.use("/data", require("./modules/data/data.js"));
       app.use("/sensor", require("./modules/editor/sensor.js"));
       app.use("/newSensor", require("./modules/editor/requestSensor.js"));
-
+      app.use("/admin",  require("./modules/admin/adminDas.js"));
 		// ====
 	},
 

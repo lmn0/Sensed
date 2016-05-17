@@ -72,7 +72,7 @@ block main
 				for(j=0;j< jsSensorData[i]["features"].length;j++){
 				//rows+="<tr><td>"+jsSensorData[i]["dataSetId"]+"</td><td>"+jsSensorData[i]["features"][j]["sensorname"]+"</td><td><input type='checkbox' name='check' value="+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"></td></tr>";
 				rows+="<tr><td>"+jsSensorData[i]["station"]+"</td><td>"+jsSensorData[i]["features"][j]["sensorname"]+"</td><td><input type='checkbox' name='check' value="+j+"></td></tr>";
-				document.getElementById("hidden").value=document.getElementById("hidden").value+jsSensorData[i]["station"]+"+"+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"+"+jsSensorData[i]["features"][j]["sensorname"]+",";
+				document.getElementById("hidden").value=document.getElementById("hidden").value+jsSensorData[i]["station"]+"+"+jsSensorData[i]["dataSetId"]+"+"+jsSensorData[i]["location"]["lat"]+"+"+jsSensorData[i]["location"]["lng"]+"+"+jsSensorData[i]["features"][j]["sensor"]+"+"+jsSensorData[i]["features"][j]["sensorname"]+ jsSensorData[i]["features"][j]["costpermonth"] ++",";
 
 				}
 

@@ -185,7 +185,7 @@ console.log("tempTo"+tempTo);
 						tempSensorLng=Number(selectedElements[i].split("+")[3]);
 						tempSensorId=selectedElements[i].split("+")[4];
 						tempSensorName=selectedElements[i].split("+")[5];
-
+						tempCostPerMonth=selectedElements[i].split("+")[6];
 
 						//userid="571dc7758e70a5e6101dcac1";
 						// userid=req.sessionID;
@@ -331,7 +331,7 @@ console.log("tempTo"+tempTo);
 															{"userid": userid, "dataSetId": tempSensorDataSetID},
 
 															{$addToSet:{
-																subscribedto:{sensorId:tempSensorId,sensorname:tempSensorName}
+																subscribedto:{sensorId:tempSensorId,sensorname:tempSensorName,costPerMonth:tempCostPerMonth}
 															}}
 													);
 													db.close();
@@ -341,7 +341,7 @@ console.log("tempTo"+tempTo);
 											}
 
 										});
-										}(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName));
+										}(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName,tempCostPerMonth));
 									}
 									else
 									{
@@ -392,14 +392,14 @@ console.log("tempTo"+tempTo);
 
 
 								console.log("-------------Insert everything -- NEW ROW---------------------");
-								db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName}]});
+								db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName,costPerMonth:tempCostPerMonth}]});
 							}
 						}
 					});
 =======
 								}
 							});
-						}(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName));
+						}(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName,tempCostPerMonth));
 					//});
 				}
 			
