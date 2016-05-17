@@ -11,6 +11,7 @@ var mongodb = require('mongodb');
 var http = require('http');
 var uuid=require('node-uuid');  
 var fs = require('fs');
+var io = require('socket.io')(8588);
 
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 var MongoClient = mongodb.MongoClient;
@@ -48,7 +49,7 @@ var checkSession =function(req,res,actioncallback){
           console.log('Connection established to', url);
 
     // Get the documents collection
-    
+        
           findUser(db,function(){db.close();});
 
         }
@@ -142,48 +143,48 @@ router.post(['/', '/:action'], function(req, res, next) {
   switch(action){
 
     case "mobileDataRetrieve":
-    var getSensorData=function(db,userdoc,callback){
+    var flag=0;
+    var getSensorData=function(db,userdoc){
       var cursor =db.collection('mobileReg').find({"userid":""+userdoc._id}).toArray(function(err,result){
         var userid="";
-          var modids=[];
+          var mobids=[];
           var i=0;
-
-        if(typeof req.body.check != typeof "string"){
-          for(i=0;i<req.body.check.length;i++)
+          console.log(typeof req.body.mobcheck)
+        if(typeof req.body.mobcheck != typeof "string"){
+          for(i=0;i<req.body.mobcheck.length;i++)
         {
-          userid=req.body.check[i].split("+")[0];
-          mobids.push(req.body.check[i].split("+")[1]);
+          userid=req.body.mobcheck[i].split("+")[0];
+          mobids.push(req.body.mobcheck[i].split("+")[1]);
         }
         }
          else
         {
-            userid=req.body.check.split("+")[0];
-          mobids.push(req.body.check.split("+")[1]);
+            userid=req.body.mobcheck.split("+")[0];
+          mobids.push(req.body.mobcheck.split("+")[1]);
         }
 
 
         //GET DATA FROM THE MONGODB to display in charts !
 
-        var getTempData = function(db, callback) {
-    console.log(req.body.userId);
-   var cursor =db.collection('mobileTemp').find( { "userid": userdoc._id,"mobid":{$in:mobids}}).toArray(function(err,doc){
+        var getTempData = function(socket, db, mobid) {
+    console.log(userdoc._id+","+mobid+","+(new Date().getTime()));
+    
+   var cursor =db.collection('mobileAcce').find( { "mobid":mobid,"time":{$gte:new Date().getTime() - 10703}}).toArray(function(err,doc){
       assert.equal(err, null);
-      
+      console.log(doc);
       if (doc != null) {
-        //console.log(doc);
-         res.status(200).render("data/mobileData.jade", {
-          data: doc,
-          nog:i,
-          pageTitle: "Sensed! - Dashboard",
-          showRegister: true,
-          showlogin:false
-        });
+        console.log(doc);
+        socket.emit('data', doc);
       } else {
-        //console.log(doc);
+        console.log("Ending");
         res.send(404);
       }
+      setTimeout(function(socket,db,mobid){
+        getTempData(socket,db,mobid);
+      }(socket,db,mobid), 3703);
       //res.redirect('dashboard');
    });
+
 };
 
           MongoClient.connect(url, function (err, db) {
@@ -192,9 +193,23 @@ router.post(['/', '/:action'], function(req, res, next) {
   } else {
     //HURRAY!! We are connected. :)
     console.log('Connection established to', url);
-
+    var mobid=req.body.mobcheck.split("+")[1];
+    console.log(">>>>>>>>>>>"+mobid);
+    io.on('connection', function (socket) {
+     // var loop=
+       getTempData( socket,db,mobid);
+     
+      
+    });
     // Get the documents collection
-    getTempData(db,function(){db.close();});
+         res.status(200).render("data/mobileData.jade", {
+          //data: doc,
+         // nog:i,
+          pageTitle: "Sensed! - Dashboard",
+          showRegister: true,
+          showlogin:false
+        });
+    
   }
 
       // assert.equal(err, null);
@@ -292,6 +307,7 @@ router.post(['/', '/:action'], function(req, res, next) {
         for(i=0;i<Object.keys(tempSensor).length;i++)
         {
           url.push("http://erddap.cencoos.org/erddap/tabledap/"+Object.keys(tempSensor)[i]+".json?time,station,"+tempSensor[Object.keys(tempSensor)[i]].join(",")+"&time>="+tempFrom[Object.keys(tempSensor)[i]]+"&time<="+tempTo[Object.keys(tempSensor)[i]]);
+          console.log(url[i]);
           console.log("------->"+tempSensor[Object.keys(tempSensor)[i]].length+"<---");
           var row=tempSensor[Object.keys(tempSensor)[i]].length;
           request(url[i], function (error, response, body) {

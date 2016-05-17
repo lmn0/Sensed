@@ -71,7 +71,7 @@ var App = {
 
 	start: function(port) {
 		app.listen(port, function()  {
-			console.log('Listening on http://localhost:%d', port);
+			console.log('Listening on:%d', port);
 		});
 	},
 

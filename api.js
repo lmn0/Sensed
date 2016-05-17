@@ -13,14 +13,15 @@ var assert = require('assert');
 var Api = {
   login: function(req, res, cb) {
 
-  var changeSession=function(db, callback) {
+  var changeSession=function(doc,db, callback) {
    db.collection('users').updateOne(
       { "email" : req.body.email,"password":req.body.password },
       {
         $set: { "sid": req.sessionID }
       }, function(err, results) {
       console.log(results);
-      if(results.typeofAccnt == "admin")
+      
+      if(doc.accountType == "admin")
         res.redirect('/admin/dashboard');
       else
         res.redirect('/editor/dashboard');
@@ -35,7 +36,7 @@ var Api = {
       assert.equal(err, null);
       if (doc != null) {
         console.log(doc);
-         changeSession(db,function(){db.close();});
+         changeSession(doc,db,function(){db.close();});
       } else {
         console.log(doc);
          res.redirect('notfound');

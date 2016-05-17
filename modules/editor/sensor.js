@@ -1,4 +1,3 @@
-
 //Node modules
 var express = require('express'),
 async = require("async"),
@@ -149,34 +148,6 @@ router.post(['/', '/:action'], function(req, res, next) {
 
 
 
-//			for(q=0;q<selectedElements.length;q++)
-//			{
-//			console.log("SELECTED FINAL ELEMETS");
-//			console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-//			console.log("selectedElements["+q+"]: "+selectedElements[q]);
-
-//			}
-
-			/*for (x=0;x<req.body.check.length;x++)
-			{
-
-			console.log("=========array elements==================");
-			console.log(array[checkIndex[x]]);
-			console.log("===========================");
-
-
-			}*/
-
-
-
-			//console.log(req.body.dateFrom);
-			//console.log(req.body.dateTo);
-
-			//gov_noaa_nws_kmry+wind_speed+2016-01-06T00:00:00Z+2016-01-13T18:45:00Z
-			//,
-			//gov_noaa_nws_kmry+air_temperature+2016-01-06T00:00:00Z+2016-01-13T18:45:00Z
-			//'gov_noaa_nws_kmry+wind_speed+Wind'
-
 			var tempSensorStation="";
 			var tempSensorDataSetID="";
 			var tempSensorId="";
@@ -300,6 +271,17 @@ console.log("tempTo"+tempTo);
 
 											console.log("result1 is :"+result1);
 
+<<<<<<< HEAD
+					/*//Hard coded--- Only for testing purpose pls
+					//tempSensorDataSetID="gov_noaa_nws_kmry";
+					//tempSensorLat="36.5833333333333";
+					//tempSensorLng="-121.85";
+					//tempSensorName="Wind Speed (Knot)";
+					//tempSensorId="wind_speed";
+					//tempSensorName="Air Temperature (Degree F)";
+					//tempSensorId="air_temperature";
+					 */
+=======
 											if(err1!=null)
 											{
 												console.log("There is some error from Database. Error is = "+err1);
@@ -320,6 +302,7 @@ console.log("tempTo"+tempTo);
 															}}
 													);
 													db.close();
+>>>>>>> origin/master
 
 		//											db.collection('subscription').findAndModify({
 		//											query: {"userid": userid, "dataSetId": tempSensorDataSetID,"subscribedto": {"sensorId":tempSensorId}},
@@ -332,7 +315,14 @@ console.log("tempTo"+tempTo);
 												{
 													//Insert a new sensor in existing Station
 
+<<<<<<< HEAD
+					
+				}
+			}
+			db.collection('subscription').distinct( "dataSetId", {"userid": userid, "dataSetId": tempSensorDataSetID} ,function(err, result) {
+=======
 													console.log("Insert sensor in existing hub ");
+>>>>>>> origin/master
 
 
 
@@ -377,6 +367,36 @@ console.log("tempTo"+tempTo);
 										db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName}]});
 										db.close();
 									}
+<<<<<<< HEAD
+
+								});
+							}
+							else
+							{
+								console.log(tempSensorDataSetID+" Not Present");
+								//Insert everything -- NEW ROW
+
+
+								console.log("----------INSIDE ASYNC FUNCTION------------------------");
+								console.log("----------------------------------");
+
+								console.log("tempSensorStation: "+tempSensorStation);
+								console.log("tempSensorDataSetID: "+tempSensorDataSetID);
+								console.log("tempSensorLat: "+tempSensorLat);
+								console.log("tempSensorLng: "+tempSensorLng);
+								console.log("tempSensorId: "+tempSensorId);
+								console.log("tempSensorName: "+tempSensorName);
+
+								console.log("----------------------------------");
+								console.log("----------END OF ASYNC FUNCTION-----------------------");
+
+
+								console.log("-------------Insert everything -- NEW ROW---------------------");
+								db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName}]});
+							}
+						}
+					});
+=======
 								}
 							});
 						}(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName));
@@ -384,6 +404,7 @@ console.log("tempTo"+tempTo);
 				}
 			
 			}
+>>>>>>> origin/master
 
 		}
 
