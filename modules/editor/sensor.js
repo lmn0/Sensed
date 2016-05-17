@@ -243,7 +243,8 @@ console.log("tempTo"+tempTo);
 						// console.log("----------------------------------");
 						// console.log("------------FOR LOOP END----------------------");
 						//console.log("function(foo)");
-						(function(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName){ //console.log(foo);
+						(function(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName)
+						{ //console.log(foo);
 						
 							db.collection('subscription').distinct( "dataSetId", {"userid": userid, "dataSetId": tempSensorDataSetID} ,function(err, result) {
 								//console.log(result);
@@ -271,17 +272,6 @@ console.log("tempTo"+tempTo);
 
 											console.log("result1 is :"+result1);
 
-<<<<<<< HEAD
-					/*//Hard coded--- Only for testing purpose pls
-					//tempSensorDataSetID="gov_noaa_nws_kmry";
-					//tempSensorLat="36.5833333333333";
-					//tempSensorLng="-121.85";
-					//tempSensorName="Wind Speed (Knot)";
-					//tempSensorId="wind_speed";
-					//tempSensorName="Air Temperature (Degree F)";
-					//tempSensorId="air_temperature";
-					 */
-=======
 											if(err1!=null)
 											{
 												console.log("There is some error from Database. Error is = "+err1);
@@ -301,8 +291,8 @@ console.log("tempTo"+tempTo);
 																from:tempFrom,to:tempTo
 															}}
 													);
-													db.close();
->>>>>>> origin/master
+													//db.close();
+
 
 		//											db.collection('subscription').findAndModify({
 		//											query: {"userid": userid, "dataSetId": tempSensorDataSetID,"subscribedto": {"sensorId":tempSensorId}},
@@ -315,16 +305,8 @@ console.log("tempTo"+tempTo);
 												{
 													//Insert a new sensor in existing Station
 
-<<<<<<< HEAD
-					
-				}
-			}
-			db.collection('subscription').distinct( "dataSetId", {"userid": userid, "dataSetId": tempSensorDataSetID} ,function(err, result) {
-=======
+
 													console.log("Insert sensor in existing hub ");
->>>>>>> origin/master
-
-
 
 
 													db.collection('subscription').update(
@@ -334,7 +316,7 @@ console.log("tempTo"+tempTo);
 																subscribedto:{sensorId:tempSensorId,sensorname:tempSensorName,costPerMonth:tempCostPerMonth}
 															}}
 													);
-													db.close();
+													//db.close();
 
 
 												}
@@ -343,6 +325,9 @@ console.log("tempTo"+tempTo);
 										});
 										}(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName,tempCostPerMonth));
 									}
+									
+								//});
+							
 									else
 									{
 										console.log(tempSensorDataSetID+" Not Present");
@@ -364,47 +349,17 @@ console.log("tempTo"+tempTo);
 										flag =1;
 
 										console.log("-------------Insert everything -- NEW ROW---------------------");
-										db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName}]});
-										db.close();
-									}
-<<<<<<< HEAD
-
-								});
-							}
-							else
-							{
-								console.log(tempSensorDataSetID+" Not Present");
-								//Insert everything -- NEW ROW
-
-
-								console.log("----------INSIDE ASYNC FUNCTION------------------------");
-								console.log("----------------------------------");
-
-								console.log("tempSensorStation: "+tempSensorStation);
-								console.log("tempSensorDataSetID: "+tempSensorDataSetID);
-								console.log("tempSensorLat: "+tempSensorLat);
-								console.log("tempSensorLng: "+tempSensorLng);
-								console.log("tempSensorId: "+tempSensorId);
-								console.log("tempSensorName: "+tempSensorName);
-
-								console.log("----------------------------------");
-								console.log("----------END OF ASYNC FUNCTION-----------------------");
-
-
-								console.log("-------------Insert everything -- NEW ROW---------------------");
-								db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName,costPerMonth:tempCostPerMonth}]});
-							}
-						}
-					});
-=======
-								}
+										db.collection('subscription').insert( {userid: userid, dataSetId: tempSensorDataSetID,station:tempSensorStation, location: {lat:tempSensorLat,lng:tempSensorLng},from:tempFrom,to:tempTo,subscribedto:[{sensorId:tempSensorId,sensorname:tempSensorName,costPerMonth:tempCostPerMonth}]});
+								 	}
+								 }
 							});
+						//});
 						}(tempSensorStation,tempSensorDataSetID,tempSensorLat,tempSensorLng,tempSensorId,tempSensorName,tempCostPerMonth));
 					//});
 				}
 			
 			}
->>>>>>> origin/master
+
 
 		}
 
