@@ -13,20 +13,11 @@ block main
 						th(bgcolor="#A5FF7F" height="50")
 							| Phone Number
 						th(bgcolor="#A5FF7F" height="50")
-							| Enbaled Feature
-						th(bgcolor="#A5FF7F" height="50")
-							| Enbaled Feature
-						th(bgcolor="#A5FF7F" height="50")
-							| Enbaled Feature
-						th(bgcolor="#A5FF7F" height="50")
 							| View
 						each val,index in data
 								tr
 									td
-										| Phone #{index+1}
-									each dat in val.features
-										td
-											| #{dat}
+										| #{val.device}
 									td(align="center")
 										input(type="radio" name="mobcheck" value="#{val.userid}"+"+"+"#{val.mobid}")
 					p
