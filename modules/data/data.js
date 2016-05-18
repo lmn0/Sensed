@@ -382,20 +382,22 @@ router.post(['/', '/:action'], function(req, res, next) {
     case "mobileMongoInsert":
 
     var addUser = function(db, callback) {
-   var cursor =db.collection('mobileReg').insertOne( { "userid":req.body.userId,"mobid": req.body.mobId,"features":["Latitude & Longitude","Temperature","Pressure"]},function(err, result) {
+      console.log(JSON.stringify(req.body));
+   var cursor =db.collection('mobileReg').insertOne( { "userid":req.body.userId,"mobid": req.body.mobId,"features":["Latitude & Longitude","Temperature","Pressure"],"device":req.body.device},function(err, result) {
       assert.equal(err, null);
       console.log(result);
-      res.send(200);
+      res.sendStatus(200);
    });
 };
 
 var findUser = function(db, callback) {
-    console.log(req.body.userid);
-   var cursor =db.collection('users').findOne( { "_id": req.body.userid} ,function(err, doc) {
+    console.log("USERID FROM MOB>>"+req.body.userId);
+   var cursor =db.collection('users').findOne( { "_id": req.body.userId} ,function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {
         console.log(doc);
          res.send(200,"loggedin");
+         addUser(db,function(){db.close();})
       } else {
         console.log(doc);
         addUser(db,function(){db.close();})
