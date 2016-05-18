@@ -40,7 +40,7 @@ block main
 						},
 						xAxis: {
 							type: 'datetime',
-							tickPixelInterval: 1500,
+							tickPixelInterval: 5500,
 							maxZoom: 20 * 1000
 						},
 						yAxis: {
@@ -52,7 +52,7 @@ block main
 							}
 						},
 						series: [{
-							name: "Test",
+							name: "Accelerometer",
 							data: []
 						}]
 					});
@@ -64,7 +64,7 @@ block main
 						socket.on('data', function (data) {
 							
 							var series = hchart.series[0];
-							shift = series.data.length > 20;
+							shift = series.data.length > 500;
 							console.log(data[0].accelerometer);
 							hchart.series[0].addPoint([new Date().getTime(),parseFloat(data[0].accelerometer)], true, shift);
 					
