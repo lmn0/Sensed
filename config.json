@@ -1,9 +1,9 @@
 {
 	"development": {
-		"host": "localhost",
+		"host": "52.36.242.48",
 		"port": 8587,
-		"baseURL": "http://localhost:8587",
-		"apiServer": "http://localhost:5050"
+		"baseURL": "http://52.36.242.48:8587",
+		"apiServer": "http://52.36.242.48:5050"
 	},
 
 	"production": {
