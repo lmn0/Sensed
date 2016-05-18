@@ -22,7 +22,7 @@ var Api = {
       console.log(results);
       
       if(doc.accountType == "admin")
-        res.redirect('/admin/dashboard');
+        res.redirect('/admin/requests');
       else
         res.redirect('/editor/dashboard');
       res.end();

@@ -25,7 +25,6 @@ block main
 								input(type="text", name="Cost", placeholder="Cost", required="required")
 							li
 								each val in data
-									#{val.userId}
-									input(type = "hidden" name = "requestIdu" value = '#{val.userId}')
-								button(class="btn flt-right",type="submit", onclick="javascript:alert('Adam!!')" ) Add
+									input(type = "hidden" name = "requestIdu" value = "#{val.userId}")
+								button(class="btn flt-right",type="submit", onclick="javascript:alert('New Sensor Added!!')" ) Add
 block post_wrap

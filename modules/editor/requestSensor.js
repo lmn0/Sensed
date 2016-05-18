@@ -110,7 +110,7 @@ router.post(['/', '/:action'], function(req, res, next) {
 			console.log("lat"+lat);
 
 			
-			db.collection('requestedSensors').insert( {userid: userid, sensorType: sensor, lng:lng, lat:lat,status : "Not Handeled"});
+			db.collection('requestedSensors').insert( {userId: userid, sensorType: sensor, lng:lng, lat:lat,status : "Not Handeled"});
 			db.close();
 			
 			
