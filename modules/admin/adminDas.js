@@ -22,6 +22,7 @@ router.get(['/', '/:action'], function(req, res, next) {
 
   console.log(req.ip);
   switch(action) {
+
     case "dashboard":
   var wspaces=[];
     var findWorkspaces=function(db,userdoc,callback){
@@ -229,12 +230,8 @@ router.post(['/', '/:action'], function(req, res, next) {
   						 var insertAdmin = function(db,callback) {
   							 db.collection('users').insert({"accountType" : "admin", "email" : email, "password" : password,
   								 "First_Name" : Fname, "Last_Name" : Lname},function(err, results) {
-  	  						    	res.status(201).render("admin/ADS.jade", {
-  	  									pageTitle: "Sensed! - Admin Added Successfully",
-  	  									showRegister: false,
-  	  									showlogin:false
-  	  								});
-  	  							  res.end();
+								 res.redirect("/admin/addAdmins");
+								 res.end();
   									
   	  						      callback();
   	  						   });
@@ -265,12 +262,8 @@ router.post(['/', '/:action'], function(req, res, next) {
   						      {
   						        $set: { "status" : "Handeled" }
   						      });
-  						    	res.status(201).render("admin/Success.jade", {
-  									pageTitle: "Sensed! - Sensors Added Successfully",
-
-  									showRegister: false,
-  									showlogin:false
-  								});
+							console.log("Testing");
+  						    	res.redirect("/admin/requests");
   							  res.end();
   						};
 	  var insertSensor = function(db,callback) {
