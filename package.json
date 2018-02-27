@@ -1,0 +1,33 @@
+{
+  "name": "pycloud",
+  "version": "0.0.1",
+  "description": "pyCloud!",
+  "main": "index.js",
+  "scripts": {
+    "prod": "node index.js --prod",
+    "dev": "node index.js --dev",
+    "dev-nopretty": "node index.js --dev --nopretty"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjskrish/pyCloud.git"
+  },
+  "author": "tjskrishna@gmail.com",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "async": "^1.4.2",
+    "body-parser": "^1.13.3",
+    "express": "^4.12.4",
+    "jade": "^1.11.0",
+    "moment": "^2.10.6",
+    "morgan": "^1.6.1",
+    "opentok": "~2.3.0",
+    "request": "^2.60.0",
+    "open": "0.0.5",
+    "cookie-parser":"*",
+    "express-session":"*"
+  },
+  "devDependencies": {}
+}
+

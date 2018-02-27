@@ -4,20 +4,12 @@ block pre_main
 	div#banner
 		div.content
 			h2
-				| Get started with the Sensor Cloud!
-				h4 Check, Research, Develop your applications based on our endpoints or data!
+				| Simple Access
+				| Alerting - When it happens
+ 				| Focus only on your dev - you'll want it!
+				h4 
 
 block main
 	div.home
-		| CMPE 281 Project work.
 
 block post_wrap
-	script.
-		Jyotisham.addWinResize(function() {
-			var j = Jyotisham;
-			winH = j.dom.win.outerHeight(false);
-			docH = j.dom.doc.outerHeight(false);
-			winH = (winH > docH)? docH : winH;
-
-			$("#banner").css("height", winH - j.dom.header.outerHeight(false));
-		});

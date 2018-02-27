@@ -13,7 +13,7 @@ var Utilities = require("./lib/utilities.js");
 // ===
 
 var app = express();
-app.use(cookieParser('my 114 o2o'));
+app.use(cookieParser('hiej mxnd 931'));
 app.use(session({
   maxAge : 1000*60*60*24 ,
   cookie : {

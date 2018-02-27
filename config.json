@@ -1,15 +1,15 @@
 {
 	"development": {
-		"host": "52.36.242.48",
+		"host": "18.216.172.187",
 		"port": 8587,
-		"baseURL": "http://52.36.242.48:8587",
-		"apiServer": "http://52.36.242.48:5050"
+		"baseURL": "18.216.172.187:8587",
+		"apiServer": "18.216.172.187:5050"
 	},
 
 	"production": {
-		"host": "52.36.242.48",
+		"host": "18.216.172.187",
 		"port": 8587,
-		"baseURL": "http://Sensed.cloudapp.net",
-		"apiServer": "http://52.36.242.48:5050"
+		"baseURL": "http://18.216.172.187:8587",
+		"apiServer": "http://18.216.172.187:5050"
 	}
 }
