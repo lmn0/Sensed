@@ -7,7 +7,9 @@ block main
 	script(type='text/javascript').
 		//alert("#{subscription[0]["userid"]}");
 		function initMap() {
-			var myLatLng = {"lat": #{subscription[0]["location"]["lat"]}, "lng": #{subscription[0]["location"]["lng"]}};
+			var myLatLng = {"lat": 121, //{subscription[0]["location"]["lat"]}, 
+
+			"lng": 37 }; //{subscription[0]["location"]["lng"]}
 
 			var map = new google.maps.Map(document.getElementById('map1'), {
 				zoom: 4,
@@ -18,11 +20,15 @@ block main
 			var data = !{JSON.stringify(subscription)}
 
 			//alert(data[0]["location"]["lat"]);
+			/*
 			for (i=0;i<#{subscription.length};i++){
 
 			
 				var marker = new google.maps.Marker({
-					position: {lat: data[i]["location"]["lat"], lng: data[i]["location"]["lng"]},
+					position: {lat: 121//#data[i]["location"]["lat"]
+					, lng: 37 //#data[i]["location"]["lng"]
+					}
+					,
 					map: map,
 					title: 'Sensor DataSet',
 					id:data[i]["_id"]
@@ -47,19 +53,21 @@ block main
 					document.getElementById("tab").innerHTML="<table border='1' cellpadding='5' cellspacing='5' width='100%'><th bgcolor='#A5FF7F' height='50'>Dataset ID</th><th bgcolor='#A5FF7F' height='50'>Sensor Name</th><th bgcolor='#A5FF7F' height='50'>Booked From</th><th bgcolor='#A5FF7F' height='50'>Booked To</th><th bgcolor='#A5FF7F' height='50'>View</th>"+rows+"</table>"
 					infowindow.setContent(data[i]["dataSetId"]);
 					infowindow.open(map, marker);
+
 				}
 				})(marker, i));
 
 				marker.setMap(map);
 			}
-			google.maps.event.addDomListener(window, 'load', initialize);
+			*/
+			google.maps.event.addDomListener(window, 'load', initMap);
 		}
 	div.center 
 		form(action="/data/retrieve", method="POST")
 					.ui.inverted.tabular.menu
 						a.item(href="/editor/overview") Overview
 						.active.item(href="/editor/map") Map
-					div(id="map1" style="position:left;height:400px; width:100%;") 
+					div(id="map1" style="position:center;height:400px; width:100%;") 
 					p
 					div(id="tab")
 					p
@@ -68,5 +76,5 @@ block main
 	
 
 block post_wrap
-	script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJHfwBxIqgN-TUtCwkaHZiBPoqYQipmLI&callback=initMap" async defer)
+	script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJHfwBxIqgN-TUtCwkaHZiBPoqYQipmLI&callback=initMap" )
 	

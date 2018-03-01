@@ -9,7 +9,7 @@ var mongodb = require('mongodb');
 
 var MongoClient = mongodb.MongoClient;
 
-var url ='mongodb://tjs:password@ds013971.mlab.com:13971/sensed';
+var url ='mongodb://tkris:password@ds039684.mlab.com:39684/mongo';
 
 
 var assert = require('assert');

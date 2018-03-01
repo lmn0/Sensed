@@ -6,7 +6,7 @@ var mongodb = require('mongodb');
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 var MongoClient = mongodb.MongoClient;
 // Connection URL. This is where your mongodb server is running.
-var url = 'mongodb://tjs:password@ds013971.mlab.com:13971/sensed';
+var url = 'mongodb://tkris:password@ds039684.mlab.com:39684/mongo';
 var assert = require('assert');
 
 
@@ -62,27 +62,6 @@ MongoClient.connect(url, function (err, db) {
   }
   
 });
-
-
-
-// var postData={
-//     ip:req.ip
-// };
-// request.post({
-//     uri:"http://192.168.1.4:3002",
-//     headers:{'content-type': 'application/x-www-form-urlencoded'},
-//     body:require('querystring').stringify(postData)
-//     },function(err,resp,body){
-//         var jsonObject = JSON.parse(body);
-//         console.log(jsonObject.Location);
-//         setTimeout(function() {
-//           var loc = jsonObject.Location.trim();
-//           res.redirect(""+loc);
-//           res.end();
-//         }, 5000);   
-// });
-
-
 },
 
 createaccount:function(req,res,cb){
