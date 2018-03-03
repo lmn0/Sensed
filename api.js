@@ -55,7 +55,7 @@ MongoClient.connect(url, function (err, db) {
   } else {
     //HURRAY!! We are connected. :)
     console.log('Connection established to', url);
-
+    
     // Get the documents collection
     findUser(db,function(){db.close();});
 

@@ -4,70 +4,71 @@ block siden
 	include sidenav.jade
 
 block main
-	script(type='text/javascript').
+	div.editor
+		script(type='text/javascript').
 
-		var marker;
-		function initMap() {
+			var marker;
+			function initMap() {
 
-			var map = new google.maps.Map(document.getElementById('map1'), {
-				zoom: 8,
-				center: {lat: 37.6213, lng: -122.3790}
-			});
+				var map = new google.maps.Map(document.getElementById('map1'), {
+					zoom: 8,
+					center: {lat: 37.6213, lng: -122.3790}
+				});
 
-			google.maps.event.addListener(map, 'click', function(event) {
-				 
-				//map.clearOverlays();//
+				google.maps.event.addListener(map, 'click', function(event) {
+				 	
+					//map.clearOverlays();//
 
-				//alert(event.latLng.lat());
-				//alert(event.latLng.lng());
+					//alert(event.latLng.lat());
+					//alert(event.latLng.lng());
 
-				document.getElementById("latSelected").value=event.latLng.lat();
-				document.getElementById("lngSelected").value=event.latLng.lng();
+					document.getElementById("latSelected").value=event.latLng.lat();
+					document.getElementById("lngSelected").value=event.latLng.lng();
 
-				placeMarker(event.latLng);
-			});
+					placeMarker(event.latLng);
+				});
 
-			function placeMarker(location) {
+				function placeMarker(location) {
 
-			if ( marker ) {
-			marker.setPosition(location);
-			} 
-			else 
-			{
-			marker = new google.maps.Marker({
-			position: location,
-			map: map
-			});
+				if ( marker ) {
+				marker.setPosition(location);
+				} 
+				else 
+				{
+				marker = new google.maps.Marker({
+				position: location,
+				map: map
+				});
+				}
+				}
+
+
+				google.maps.event.addDomListener(window, 'load', initialize);
+
+
 			}
-			}
 
 
-			google.maps.event.addDomListener(window, 'load', initialize);
-
-
-		}
-
-
-	form(action="/newSensor/addNewSensor", method="POST")
-		p
-		label(id="sensorName" style="font-size: 200%;font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Select area for requested sensor in the below map
-		p
-		div(id="map1" style="position:left;height:250px; width:60%;")
-		p
-		div(id="tab")
-		p
-		label(id="sensorName" style="font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Your Name
-		input(id="sensorName" name="sensorName" style="margin-top:0.5%" type="input"  required="true")
-		p
-		label(id="lat" style="font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Latitude
-		input(id="latSelected" name="latSelected" type="input" value="")
-		p
-		label(id="lan" style="font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Longitude
-		input(id="lngSelected" name="lngSelected" type="input" value="")
-		p
-		input(class="ui inverted blue button" id="but" style="margin-left:5%" type="submit" value="Get this!")
-		p
-
+		form(action="/newSensor/addNewSensor", method="POST")
+			p
+			label(id="sensorName" style="font-size: 200%;font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Select area for requested sensor in the below map
+			p
+			div(id="map1" style="position:left;height:250px; width:60%;")
+			p
+			div(id="tab")
+			p
+			label(id="sensorName" style="font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Your Name
+			input(id="sensorName" name="sensorName" style="margin-top:0.5%" type="input"  required="true")
+			p
+			label(id="lat" style="font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Latitude
+			input(id="latSelected" name="latSelected" type="input" value="")
+			p
+			label(id="lan" style="font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Longitude
+			input(id="lngSelected" name="lngSelected" type="input" value="")
+			p
+			input(class="ui inverted blue button" id="but" style="margin-left:5%" type="submit" value="Get this!")
+			p
+			
 
 block post_wrap
 	script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJHfwBxIqgN-TUtCwkaHZiBPoqYQipmLI&callback=initMap" async defer)

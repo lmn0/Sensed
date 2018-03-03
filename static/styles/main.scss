@@ -154,9 +154,25 @@ input, select, textarea {
 #wrap { }
 
 #main {
-  max-width: 960px;
+  //max-width: 80%;
+  //padding: 2em 1.25em;
+  //margin: 0 auto;
+  //position: absolute;
+  //left: 20%;
+  //right: 0;
+}
+
+#login{
+  position: absolute;
+}
+
+.editor{
+  max-width: 80%;
   padding: 2em 1.25em;
   margin: 0 auto;
+  position: absolute;
+  left: 20%;
+  right: 0;
 }
 
 #header, #footer {
@@ -224,6 +240,8 @@ input, select, textarea {
   height:100%;
   position:fixed;
 }
+
+
 
 #footer {
   font-size: 0.75em;

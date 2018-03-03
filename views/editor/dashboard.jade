@@ -3,7 +3,7 @@ block siden
 	include sidenav.jade
 
 block main
-	div.editor
+	div.editor(class=editor)
 		block content
 			div.center
 				form(action="/editor/newworkspace", method="POST")
