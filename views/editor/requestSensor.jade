@@ -49,6 +49,7 @@ block main
 			}
 
 
+
 		form(action="/newSensor/addNewSensor", method="POST")
 			p
 			label(id="sensorName" style="font-size: 200%;font-weight: bold; margin-left:3%;margin-top:0.5%;margin-right:2%") Select area for requested sensor in the below map
@@ -68,7 +69,7 @@ block main
 			p
 			input(class="ui inverted blue button" id="but" style="margin-left:5%" type="submit" value="Get this!")
 			p
-			
+
 
 block post_wrap
 	script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJHfwBxIqgN-TUtCwkaHZiBPoqYQipmLI&callback=initMap" async defer)
